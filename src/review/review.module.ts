@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ReviewController } from './review.controller';
 import { TypegooseModule } from 'nestjs-typegoose';
-import { ReviewModel } from 'src/review/review.model';
+import { ReviewService } from './review.service';
+import { ReviewModel } from './review.model';
 
 @Module({
   controllers: [ReviewController],
@@ -15,5 +16,6 @@ import { ReviewModel } from 'src/review/review.model';
       },
     ]),
   ],
+  providers: [ReviewService],
 })
 export class ReviewModule {}

@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post } from '@nestjs/common';
-import { TopPageModel } from 'src/top-page/top-page.model';
-import { FindTopPageDto } from 'src/top-page/dto/find-top-page.dto';
+import { TopPageModel } from './top-page.model';
+import { FindTopPageDto } from './dto/find-top-page.dto';
 
 @Controller('top-page')
 export class TopPageController {
