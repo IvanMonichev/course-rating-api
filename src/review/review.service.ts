@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
 import { Review } from './review.model';
 import { CreateReviewDto } from './dto/create-review.dto';
 import { InjectModel } from '@nestjs/mongoose';
@@ -20,9 +20,14 @@ export class ReviewService {
   }
 
   async findByProductId(productId: string): Promise<Review[]> {
-    return this.reviewModel
+    const review = await this.reviewModel
       .find({ productId: new Types.ObjectId(productId) })
       .exec();
+
+    if (review.length === 0) {
+      throw new NotFoundException();
+    }
+    return review
   }
 
   async deleteByProductId(productId: string) {

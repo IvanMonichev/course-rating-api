@@ -27,9 +27,6 @@ export class Product extends Document {
   credit: number;
 
   @Prop()
-  calculatedRating: number;
-
-  @Prop()
   description: string;
 
   @Prop()
