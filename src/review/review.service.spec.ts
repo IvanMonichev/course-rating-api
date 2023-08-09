@@ -16,10 +16,12 @@ describe('ReviewService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [ReviewService, {
-        useFactory: reviewRepositoryFactory,
-        provide: getModelToken('ReviewModel'),
-      },
+      providers: [
+        ReviewService,
+        {
+          useFactory: reviewRepositoryFactory,
+          provide: getModelToken('ReviewModel'),
+        },
       ],
     }).compile();
 
@@ -32,7 +34,9 @@ describe('ReviewService', () => {
 
   it('findByProductId – working', async () => {
     const id = new Types.ObjectId().toHexString();
-    reviewRepositoryFactory().find().exec.mockReturnValueOnce([{ productId: id}]);
+    reviewRepositoryFactory()
+      .find()
+      .exec.mockReturnValueOnce([{ productId: id }]);
     const res = await service.findByProductId(id);
     expect(res[0].productId).toBe(id);
   });

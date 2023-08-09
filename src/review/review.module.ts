@@ -1,21 +1,14 @@
 import { Module } from '@nestjs/common';
 import { ReviewController } from './review.controller';
-import { TypegooseModule } from 'nestjs-typegoose';
 import { ReviewService } from './review.service';
-import { ReviewModel } from './review.model';
+import { MongooseModule } from '@nestjs/mongoose';
+import { Review, ReviewSchema } from './review.model';
 
 @Module({
-  controllers: [ReviewController],
   imports: [
-    TypegooseModule.forFeature([
-      {
-        typegooseClass: ReviewModel,
-        schemaOptions: {
-          collection: 'Review'
-        }
-      },
-    ]),
+    MongooseModule.forFeature([{ name: Review.name, schema: ReviewSchema }]),
   ],
+  controllers: [ReviewController],
   providers: [ReviewService],
 })
 export class ReviewModule {}
