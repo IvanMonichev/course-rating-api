@@ -1,9 +1,10 @@
-import { Types } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Product } from '../product/product.model';
+import * as mongoose from 'mongoose';
 
 @Schema()
-export class Review extends Document {
+export class Review extends mongoose.Document {
+
   @Prop()
   name: string;
 
@@ -16,8 +17,9 @@ export class Review extends Document {
   @Prop()
   rating: number;
 
-  @Prop()
-  productId: Types.ObjectId;
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Product' })
+  productId: Product;
 }
 
 export const ReviewSchema = SchemaFactory.createForClass(Review);

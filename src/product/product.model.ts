@@ -9,7 +9,7 @@ class ProductCharacteristic {
   value: string;
 }
 
-@Schema()
+@Schema({ timestamps: true, versionKey: false })
 export class Product extends Document {
   @Prop()
   image: string;
@@ -21,7 +21,7 @@ export class Product extends Document {
   price: number;
 
   @Prop()
-  oldPrice: number;
+  oldPrice?: number;
 
   @Prop()
   credit: number;
@@ -39,7 +39,7 @@ export class Product extends Document {
   categories: string[];
 
   @Prop({ type: () => [String] })
-  tags: string;
+  tags: string[];
 
   @Prop({ type: () => [ProductCharacteristic], _id: false })
   characteristics: ProductCharacteristic[];
