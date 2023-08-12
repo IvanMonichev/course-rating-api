@@ -1,6 +1,7 @@
 import { Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
+
 export enum TopLevelCategory {
   Coureses,
   Services,
@@ -32,7 +33,8 @@ export class TopPageAdvantage {
   description: string;
 }
 
-@Schema({ timestamps: true, versionKey: false, collection: "top_pages" })
+
+@Schema({ timestamps: true, versionKey: false, collection: 'top_pages' })
 export class TopPage extends Document {
   @Prop({ enum: TopLevelCategory })
   firstCategory: TopLevelCategory;
@@ -43,7 +45,6 @@ export class TopPage extends Document {
   @Prop({ unique: true })
   alias: string;
 
-  @Prop()
   title: string;
 
   @Prop()
@@ -66,3 +67,4 @@ export class TopPage extends Document {
 }
 
 export const TopPageSchema = SchemaFactory.createForClass(TopPage);
+TopPageSchema.index({ "$**": 'text' });
