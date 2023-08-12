@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Product } from '../product/product.model';
 import * as mongoose from 'mongoose';
 
-@Schema()
+@Schema({ timestamps: true, versionKey: false })
 export class Review extends mongoose.Document {
 
   @Prop()

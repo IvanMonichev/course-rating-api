@@ -14,6 +14,7 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { FindProductDto } from './dto/find-product.dto';
 import { ProductService } from './product.service';
 import { PRODUCT_NOT_FOUND_ERROR } from './product.constant';
+import { IdValidationPipe } from '../pipes/id-validation.pipe';
 
 @Controller('product')
 export class ProductController {
@@ -21,12 +22,12 @@ export class ProductController {
   }
   @Post('create')
   async create(@Body() dto: CreateProductDto) {
-    return this.productService.create(dto);
+    return await this.productService.create(dto);
   }
 
   @Get(':id')
-  async get(@Param('id') id: string) {
-    const product = this.productService.findById(id);
+  async get(@Param('id', IdValidationPipe) id: string) {
+    const product = await this.productService.findById(id);
 
     if (!product) {
       throw new NotFoundException(PRODUCT_NOT_FOUND_ERROR);
@@ -47,9 +48,8 @@ export class ProductController {
   }
 
   @Patch(':id')
-  async patch(@Param('id') id: string, @Body() dto: CreateProductDto) {
-    const updatedProduct = this.productService.updateById(id, dto);
-
+  async patch(@Param('id', IdValidationPipe) id: string, @Body() dto: CreateProductDto) {
+    const updatedProduct = await this.productService.updateById(id, dto);
     if (!updatedProduct) {
       throw new NotFoundException(PRODUCT_NOT_FOUND_ERROR);
     }
@@ -61,6 +61,6 @@ export class ProductController {
   @HttpCode(200)
   @Post('find')
   async find(@Body() dto: FindProductDto) {
-    return this.productService.findWithReview(dto);
+    return await this.productService.findWithReview(dto);
   }
 }

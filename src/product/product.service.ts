@@ -34,6 +34,8 @@ export class ProductService {
   }
 
   async findWithReview(dto: FindProductDto): Promise<ProductWithReviewType[]> {
+    // @ts-ignore
+    // @ts-ignore
     return this.productModel.aggregate([
       {
         $match: {
@@ -64,6 +66,16 @@ export class ProductService {
           reviewAvg: {
             $avg: '$reviews.rating',
           },
+          reviews: {
+            $function: {
+              body: `function (reviews) {
+                reviews.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                return reviews
+              }`,
+              args: ['$reviews'],
+              lang: 'js'
+            }
+          }
         },
       },
     ]).exec();
