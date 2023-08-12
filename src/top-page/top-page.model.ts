@@ -45,6 +45,7 @@ export class TopPage extends Document {
   @Prop({ unique: true })
   alias: string;
 
+  @Prop()
   title: string;
 
   @Prop()

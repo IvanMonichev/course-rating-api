@@ -80,7 +80,6 @@ export class TopPageController {
 
   @Get('textSearch/:text')
   async textSearch(@Param('text') text: string) {
-    console.log(text);
     return this.topPageService.findByText(text);
   }
 
