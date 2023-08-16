@@ -15,7 +15,6 @@ Nest JS, Node JS, TypeScript, Docker, Mongo DB.
 - Добавление фотографий.
 - Автотестирование.
 
----
 ## Команды
 
 ```bash
